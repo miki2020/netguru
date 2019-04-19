@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'comments/destroy'
+#post 'comments/create'
   devise_for :users
   namespace :api do
     namespace :v1 do
@@ -19,9 +21,14 @@ Rails.application.routes.draw do
   resources :movies, only: [:index, :show] do
     member do
       get :send_info
+      get :delete_comment
+      post :add_comment
     end
     collection do
       get :export
     end
+  end
+  resources :comments do
+    get 'movies', to: 'movies#sestroy'
   end
 end

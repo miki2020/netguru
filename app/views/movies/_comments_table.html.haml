@@ -1,0 +1,19 @@
+%table.table.table-striped
+  %tbody
+    - comments.each_with_index do |comment, i| 
+      -if comment.user
+        %tr
+          %td= i + 1
+          %td
+            %h4
+              = comment.body
+            %p
+              %strong
+                = comment.user and comment.user.email
+          
+            %td
+              -if current_user==comment.user
+                = link_to "Delete comment",  url_for(controller: 'movies', action: 'delete_comment')
+              -else
+                =""
+          

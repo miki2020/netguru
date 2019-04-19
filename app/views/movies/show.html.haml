@@ -6,3 +6,10 @@
   %p="Rating: #{api_data[:rating]}"
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+  - if not @movie.comments.where(user:current_user).first
+    %h3.text-center="Add comment"
+    = render 'new_comment', movie: @movie
+-if @movie.comments.count > 0
+  %h1.text-center Comments
+  = render 'comments_table', comments: @movie.comments
+
