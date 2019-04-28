@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'comments/destroy'
+get 'commentators', to: 'comments#commentators'  
 #post 'comments/create'
   devise_for :users
   namespace :api do
@@ -29,6 +29,6 @@ Rails.application.routes.draw do
     end
   end
   resources :comments do
-    get 'movies', to: 'movies#sestroy'
+   
   end
 end
