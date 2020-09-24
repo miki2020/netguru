@@ -1,5 +1,15 @@
+- require 'open-uri'
 %h1= @movie.title
+%img.img-rounded{ src: (f = open("https://pairguru-api.herokuapp.com/api/v1/movies/#{URI.encode(@movie.title)}") and api_data = eval(f.read)[:data][:attributes] and "https://pairguru-api.herokuapp.com#{api_data[:poster]}"), width:100}
 .jumbotron
-  = @movie.description
+  %p=api_data[:plot]
+  %p="Rating: #{api_data[:rating]}"
 - if user_signed_in?
   %p= link_to 'Email me details about this movie', send_info_movie_path(@movie), class: 'btn btn-sm btn-default'
+  - if not @movie.comments.where(user:current_user).first
+    %h3.text-center="Add comment"
+    = render 'new_comment', movie: @movie
+-if @movie.comments.count > 0
+  %h1.text-center Comments
+  = render 'comments_table', comments: @movie.comments
+

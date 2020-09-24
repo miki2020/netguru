@@ -1,0 +1,7 @@
+%table.table.table-striped
+  %tbody
+
+/- raise "#{params.to_yaml}"
+=form_for movie.comments.new, url: {controller: 'movies', action: 'add_comment' }, html:{class: "text-center"} do |f|
+  = f.text_area :body, size: "120x4"
+  = f.submit "Add comment", class: "btn btn-primary center-block"    

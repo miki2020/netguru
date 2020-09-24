@@ -4,7 +4,7 @@
       %tr
         %td= i + 1
         %td
-          %img.img-rounded{ src: movie.cover }
+          %img.img-rounded{ src: (api_data[movie.title][:poster] ? "https://pairguru-api.herokuapp.com#{api_data[movie.title][:poster]}" : movie.cover), width:100}
         %td
           %h4
             = link_to movie.title, movie_path(movie)
@@ -12,4 +12,5 @@
             %strong
               = link_to movie.genre.name, movies_genre_path(movie.genre)
             = ' (' + movie.released_at.to_s + ')'
-          %p= movie.description
+          %p= api_data[movie.title][:plot] ? api_data[movie.title][:plot] : movie.description
+          %p= "Rating: #{api_data[movie.title][:rating]}"
